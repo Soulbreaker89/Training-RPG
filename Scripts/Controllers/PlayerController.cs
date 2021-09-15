@@ -8,35 +8,29 @@ namespace TrainRPG
     {
         public float speed = 10;
         public float rotationSpeed = 8;
-        public Camera cam;     
-        private Rigidbody m_RigidBody;
+        private Camera m_Cam; 
+        private CharacterController m_ChController;
+        private PlayerInput m_PlayerInput;
 
         private void Awake()
         {
-            m_RigidBody = GetComponent<Rigidbody>();
+            m_ChController = GetComponent<CharacterController>();
+            m_Cam = Camera.main;
+            m_PlayerInput = GetComponent<PlayerInput>();
         }
 
         void FixedUpdate()
         {
-            Vector3 dir = Vector3.zero;
-            dir.x = Input.GetAxis("Horizontal");
-            dir.z = Input.GetAxis("Vertical");
+            Vector3 moveInput = m_PlayerInput.MoveInput;            
+            Quaternion camRot = m_Cam.transform.rotation;
+            Vector3 targetDir = camRot * moveInput;
+            targetDir.y = 0;
 
-            if (dir == Vector3.zero)
-            {
-                return;
-            }
 
-            Vector3 cameraDirection = cam.transform.rotation * dir;
-            Vector3 targetDirection = new Vector3(cameraDirection.x, 0, cameraDirection.z);
+            m_ChController.Move(targetDir.normalized * speed * Time.fixedDeltaTime);
+            m_ChController.transform.rotation = Quaternion.Euler(0, camRot.eulerAngles.y, 0);
 
-            if(dir.z >= 0)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(targetDirection), 0.1f);
-            }
 
-            m_RigidBody.MovePosition(m_RigidBody.position + targetDirection.normalized * speed * Time.fixedDeltaTime);
-            
         }
     }
 

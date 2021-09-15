@@ -8,9 +8,8 @@ namespace TrainRPG
     public class CameraController : MonoBehaviour
     {
         [SerializeField] private CinemachineFreeLook freeLookCamera;
-       
 
-        
+       
         void Update()
         {
             if (Input.GetMouseButtonDown(1))
