@@ -7,7 +7,7 @@ namespace TrainRPG
 {
     public class CameraController : MonoBehaviour
     {
-        [SerializeField] private CinemachineFreeLook freeLookCamera;
+        public CinemachineFreeLook freeLookCamera;
 
        
         void Update()

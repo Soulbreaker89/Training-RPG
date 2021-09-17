@@ -20,6 +20,14 @@ namespace TrainRPG
         {
             m_Movement.Set(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         }
+
+        public bool isMoving
+        {
+            get
+                {
+                    return !Mathf.Approximately(MoveInput.magnitude, 0);
+                }
+        }
     }
 
 }
