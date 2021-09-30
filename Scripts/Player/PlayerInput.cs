@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace TrainRPG
 {
-    
     public class PlayerInput : MonoBehaviour
     {
-        private Vector3 m_Movement;
+        public Vector3 m_Movement;
 
         public Vector3 MoveInput
         {
